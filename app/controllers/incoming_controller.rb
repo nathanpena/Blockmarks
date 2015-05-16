@@ -11,19 +11,19 @@ class IncomingController < ApplicationController
     # You put the message-splitting and business
     # magic here. 
     
-    # Find the user by using params[:sender]
-    @user = User.find(params[:sender])
+     # Find the user by using params[:sender]
+     @user = User.find_by_email(params[:sender])
 
      # Find the topic by using params[:subject]
-     @topic = Topic.find(params[:subject])
+     @topic = Topic.find_by_title(params[:subject])
 
      # Assign the url to a variable after retreiving it from params["body-plain"]
      @url = params[:"body-plain"]
 
      # Check if user is nil, if so, create and save a new user
+     from = params[:from]
      if @user.nil?
-        @user = User.create(:username => params[:from].slice(0..((:from.index('<')-2))), :email => params[:sender])
-        @user.save
+        @user = User.create(:username => from.slice(0..((from.index('<')-2))), :email => params[:sender])
      end
        
 
@@ -33,8 +33,7 @@ class IncomingController < ApplicationController
      end
 
      # Now that you're sure you have a valid user and topic, build and save a new bookmark
-     @bookmark = Bookmark.create(:url => @url, :topic => @topic.id)
-     @bookmark.save
+     @bookmark = Bookmark.create(:url => @url, :topic => @topic)
 
     # Assuming all went well. 
     head 200
