@@ -1,6 +1,10 @@
 <h1>Bookmarks</h1>
-<%= @bookmarks.each do |b| %>
+
+<% @topics.each do |t| %>
+<h2><%= t.title %></h2>
+<% t.bookmarks.each do |b| %>
 
 <h3><%= b.url %></h3>
 
+<% end %>
 <% end %>
