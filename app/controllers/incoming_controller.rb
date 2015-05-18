@@ -29,7 +29,8 @@ class IncomingController < ApplicationController
 
      # Check if the topic is nil, if so, create and save a new topic
      if @topic.nil?
-        @topic = Topic.find_by_title("Generic")
+        topic = params[:subject]
+        @topic = Topic.create(title: topic, user_id: @user.id)
      end
 
      # Now that you're sure you have a valid user and topic, build and save a new bookmark
