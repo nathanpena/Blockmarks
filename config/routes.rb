@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :topics
+
   get 'bookmark/index'
 
   devise_for :users
