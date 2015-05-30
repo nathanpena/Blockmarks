@@ -1,14 +1,18 @@
 <h1><%= @topic.title %></h1>
-
+    <%= link_to "New Bookmark", new_topic_bookmark_path(@topic), class: 'btn btn-success btn-sm' %>
 <div class="row">
   <div class="col-md-8">
     <% @topic.bookmarks.each do |b| %>
+      <div class="col-md-4">
       <div class="media">
         <div class="media-body">
-          <h4 class="media-heading">
-            <%= b.url %> 
+          <h4 class="media-heading">            
+             <%= link_to b.url, "http://#{b.url}" %> 
+             <%= link_to '', [b.topic, b], method: :delete, class: 'glyphicon glyphicon-trash' %>
+             <%= link_to '', edit_topic_bookmark_path(b.topic, b), class: 'glyphicon glyphicon-edit' %>
           </h4>
         </div>
       </div>
+    </div>
     <% end %>
   </div>
