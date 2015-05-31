@@ -8,10 +8,16 @@ class BookmarksController < ApplicationController
   end
 
   def create
-    @topic = Topic.find(params[:topic_id])   
-    @bookmark = @topic.bookmarks.new(bookmark_params)
-    @bookmark.save
-    redirect_to @topic
+    @topic = Topic.find(params[:topic_id])  
+    @bookmark_total = @topic.bookmarks.count 
+    @bookmark = @topic.bookmarks.find_or_create_by(bookmark_params)
+    if @bookmark_total == @topic.bookmarks.count
+      flash[:notice] = "You already have this Bookmark."
+      redirect_to @topic
+    else
+      flash[:notice] = "Bookmark was created." 
+      redirect_to @topic
+    end
   end
 
   def edit
@@ -21,8 +27,7 @@ class BookmarksController < ApplicationController
 
 def update
     @topic = Topic.find(params[:topic_id])
-    @bookmark = Bookmark.find(params[:id])
-  
+    @bookmark = Bookmark.find(params[:id])  
     @bookmark.update_attributes(bookmark_params)
     redirect_to @topic
   end
