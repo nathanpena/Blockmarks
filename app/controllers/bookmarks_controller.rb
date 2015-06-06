@@ -5,12 +5,14 @@ class BookmarksController < ApplicationController
   def new
     @topic = Topic.find(params[:topic_id])
     @bookmark = Bookmark.new
+    authorize @bookmark
   end
 
   def create
     @topic = Topic.find(params[:topic_id])  
     @bookmark_total = @topic.bookmarks.count 
     @bookmark = @topic.bookmarks.find_or_create_by(bookmark_params)
+    authorize @bookmark
     if @bookmark_total == @topic.bookmarks.count
       flash[:notice] = "You already have this Bookmark."
       redirect_to @topic

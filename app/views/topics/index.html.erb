@@ -13,7 +13,9 @@
       <div class="media-body">
         <h4 class="media-heading">
           <%= link_to topic.title, topic_path(topic) %> 
+           <% if policy(topic).destroy? %>
           <%= link_to 'Delete', topic, method: :delete, class: 'btn btn-danger btn-xs' %> 
+          <% end %>
         </h4>
       </div>
     </div>

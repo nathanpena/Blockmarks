@@ -1,5 +1,7 @@
 <h1><%= @topic.title %></h1>
+    <% if policy(@topic).update? %>
     <%= link_to "New Bookmark", new_topic_bookmark_path(@topic), class: 'btn btn-success btn-sm' %>
+    <% end %>
 <div class="row">
   <div class="col-md-8">
     <% @topic.bookmarks.each do |b| %>
@@ -8,8 +10,12 @@
         <div class="media-body">
           <h4 class="media-heading">            
              <%= link_to b.url, "http://#{b.url}" %> 
+              <% if policy(b.topic).destroy? %>
              <%= link_to '', [b.topic, b], method: :delete, class: 'glyphicon glyphicon-trash' %>
+             <% end %>
+             <% if policy(b.topic).update? %>
              <%= link_to '', edit_topic_bookmark_path(b.topic, b), class: 'glyphicon glyphicon-edit' %>
+             <% end %>
           </h4>
         </div>
       </div>
