@@ -6,18 +6,22 @@
     <%= link_to "New Topic", new_topic_path, class: 'btn btn-success btn-sm' %>
   </div>
 </div>
+
+<% @topics.each do |topic| %>
 <div class="row">
-  <div class="col-md-8">
-    <% @topics.each do |topic| %>
-    <div class="media">
-      <div class="media-body">
-        <h4 class="media-heading">
-          <%= link_to topic.title, topic_path(topic) %> 
-           <% if policy(topic).destroy? %>
-          <%= link_to 'Delete', topic, method: :delete, class: 'btn btn-danger btn-xs' %> 
-          <% end %>
-        </h4>
+        
+      <div class="col-md-1">
+        <h4><%= link_to topic.title, topic_path(topic) %></h4>
+      </div> 
+
+      <div class="col-md-1">
+        <h5>by:<%= topic.user.username %></h5>
       </div>
-    </div>
-    <% end %>
-  </div>
+           
+      <% if policy(topic).destroy? %>
+        <div class="col-md-1">
+          <%= link_to 'Delete', topic, method: :delete, class: 'btn btn-danger btn-xs' %>
+        </div>     
+      <% end %>
+</div>
+<% end %>

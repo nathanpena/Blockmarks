@@ -1,10 +1,11 @@
 Rails.application.routes.draw do
 
   resources :topics do
-    resources :bookmarks, except: [:index]
+    resources :bookmarks, except: [:index] do
+     resources :likes, only: [:create, :destroy]
+   end
   end 
   
-  get 'bookmark/index'
 
   devise_for :users
   get 'welcome/index'

@@ -5,20 +5,21 @@
 <div class="row">
   <div class="col-md-8">
     <% @topic.bookmarks.each do |b| %>
+    
       <div class="col-md-4">
-      <div class="media">
-        <div class="media-body">
-          <h4 class="media-heading">            
-             <%= link_to b.url, "http://#{b.url}" %> 
-              <% if policy(b.topic).destroy? %>
-             <%= link_to '', [b.topic, b], method: :delete, class: 'glyphicon glyphicon-trash' %>
-             <% end %>
-             <% if policy(b.topic).update? %>
-             <%= link_to '', edit_topic_bookmark_path(b.topic, b), class: 'glyphicon glyphicon-edit' %>
-             <% end %>
-          </h4>
-        </div>
+                                       
+      <%= link_to b.url, "http://#{b.url}" %> 
+              
+      <% if policy(b.topic).destroy? %>
+      <%= link_to '', [b.topic, b], method: :delete, class: 'glyphicon glyphicon-trash' %>
+      <% end %>
+
+      <% if policy(b.topic).update? %>
+      <%= link_to '', edit_topic_bookmark_path(b.topic, b), class: 'glyphicon glyphicon-edit' %>
+      <% end %>
+
+      <%= render partial: 'likes/like', locals: { bookmark: b } %>
+
       </div>
-    </div>
     <% end %>
   </div>
