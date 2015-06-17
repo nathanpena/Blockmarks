@@ -8,7 +8,7 @@
     
       <div class="col-md-4">
                                        
-      <%= link_to b.url, "http://#{b.url}" %> 
+      <%= link_to b.url, [b.topic, b] %> 
               
       <% if policy(b.topic).destroy? %>
       <%= link_to '', [b.topic, b], method: :delete, class: 'glyphicon glyphicon-trash' %>
