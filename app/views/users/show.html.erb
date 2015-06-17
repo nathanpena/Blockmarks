@@ -1,0 +1,22 @@
+<h1>My BlockMarks</h1>
+<div class="row">
+  <div class="col-md-8">
+<% @bookmarks.each do |bookmark| %>
+  <div class="col-md-4">
+    <%= link_to bookmark.url, "http://#{bookmark.url}" %>  
+  </div>
+<% end %>
+ </div>
+ </div> 
+
+ <h1>My Likes</h1>
+<div class="row">
+  <div class="col-md-8">
+<% @likes.each do |like| %>
+  <div class="col-md-4">
+    <%= link_to like.bookmark.url, "http://#{like.bookmark.url}" %> 
+    <%= render partial: 'likes/like', locals: { bookmark: like.bookmark } %>
+  </div>
+<% end %>
+ </div>
+ </div> 

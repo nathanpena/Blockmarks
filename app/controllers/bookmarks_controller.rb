@@ -12,6 +12,7 @@ class BookmarksController < ApplicationController
     @topic = Topic.find(params[:topic_id])  
     @bookmark_total = @topic.bookmarks.count 
     @bookmark = @topic.bookmarks.find_or_create_by(bookmark_params)
+    @bookmark.update_attributes(user_id: current_user.id)
     authorize @bookmark
     if @bookmark_total == @topic.bookmarks.count
       flash[:notice] = "You already have this Bookmark."
